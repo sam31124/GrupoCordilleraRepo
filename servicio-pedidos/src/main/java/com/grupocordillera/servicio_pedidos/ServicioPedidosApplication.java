@@ -1,13 +1,11 @@
-package com.grupocordillera.servicio_pedidos;
+package com.grupocordillera.servicio_pedidos.repository;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import com.grupocordillera.servicio_pedidos.model.Pedido;
 
-@SpringBootApplication
-public class ServicioPedidosApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(ServicioPedidosApplication.class, args);
-	}
-
+@Repository
+public interface PedidoRepository extends JpaRepository<Pedido, Long> {
+    List<Pedido> findBySucursalOrigen(String sucursalOrigen);
 }
