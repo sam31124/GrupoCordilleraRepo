@@ -40,4 +40,27 @@ public class PedidoController {
     public Pedido crearPedido(@RequestBody Pedido nuevoPedido) {
         return repository.save(nuevoPedido);
     }
+    
+        @PutMapping("/editar/{id}")
+    public Pedido actualizarPedido(@PathVariable Long id,
+                                   @RequestBody Pedido pedidoActualizado) {
+
+        Pedido pedido = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pedido no encontrado"));
+
+        pedido.setSucursalOrigen(pedidoActualizado.getSucursalOrigen());
+        pedido.setMontoTotal(pedidoActualizado.getMontoTotal());
+        pedido.setEstado(pedidoActualizado.getEstado());
+
+        return repository.save(pedido);
+    }
+
+    @DeleteMapping("/eliminar/{id}")
+    public String eliminarPedido(@PathVariable Long id) {
+
+        repository.deleteById(id);
+
+        return "Pedido eliminado correctamente";
+    }
+
 }
